@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+require 'thor'
+require 'plextvtoolservice'
+
+class PlexTvTool < Thor
+  desc 'fix <DIR>', 'rename episodes in <DIR>'
+  options title: :required, season: :required
+  def fix(dir)
+    PlexTvToolService.new(dir, options).rename_files!
+  end
+
+  desc 'config', 'set configurable parameters for fetching data'
+  options key: :required
+  def config
+    loaded_config = PlexTvToolService.load_config
+    loaded_config['plextvt']['omdb']['api_key'] = options[:key]
+    PlexTvToolService.write_config! loaded_config
+  end
+end
+PlexTvTool.start(ARGV)

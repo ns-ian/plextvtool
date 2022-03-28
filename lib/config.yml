@@ -1,0 +1,4 @@
+---
+plextvt:
+  omdb:
+    base_uri: https://www.omdbapi.com/
