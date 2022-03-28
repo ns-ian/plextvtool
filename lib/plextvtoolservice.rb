@@ -47,11 +47,15 @@ class PlexTvToolService
     raise 'Bad response from OMDB API' unless response.is_a? Net::HTTPSuccess
 
     body = JSON.parse response.body
-    if body['Response'] == 'False'
-      puts "Error response from OMDB API: #{body['Error']}"
-      exit 1
-    end
+    check_response body
     body['Episodes']
+  end
+
+  def check_response(response)
+    return unless response['Response'] == 'False'
+
+    puts "Error response from OMDB API: #{response['Error']}"
+    exit 1
   end
 
   def api_params

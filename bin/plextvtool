@@ -1,8 +1,10 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'thor'
 require 'plextvtoolservice'
 
+# CLI for plextvtool
 class PlexTvTool < Thor
   desc 'fix <DIR>', 'rename episodes in <DIR>'
   options title: :required, season: :required
